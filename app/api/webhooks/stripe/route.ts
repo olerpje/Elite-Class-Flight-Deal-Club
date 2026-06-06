@@ -34,30 +34,28 @@ export async function POST(request: NextRequest) {
         const subscription = event.data.object as Stripe.Subscription
         const priceId = subscription.items.data[0]?.price.id
         const tier = SUBSCRIPTION_TIER_MAP[priceId] ?? 'premium_monthly'
+        const periodEnd = (subscription as unknown as { current_period_end: number }).current_period_end
 
         await supabase.rpc('sync_stripe_subscription', {
           p_stripe_customer_id: subscription.customer as string,
           p_stripe_subscription_id: subscription.id,
           p_subscription_status: subscription.status as 'active' | 'trialing' | 'past_due' | 'canceled' | 'incomplete' | 'incomplete_expired' | 'paused',
           p_subscription_tier: tier,
-          p_current_period_end: new Date(
-            subscription.current_period_end * 1000
-          ).toISOString(),
+          p_current_period_end: new Date(periodEnd * 1000).toISOString(),
         })
         break
       }
 
       case 'customer.subscription.deleted': {
         const subscription = event.data.object as Stripe.Subscription
+        const periodEnd = (subscription as unknown as { current_period_end: number }).current_period_end
 
         await supabase.rpc('sync_stripe_subscription', {
           p_stripe_customer_id: subscription.customer as string,
           p_stripe_subscription_id: subscription.id,
           p_subscription_status: 'canceled',
           p_subscription_tier: 'free',
-          p_current_period_end: new Date(
-            subscription.current_period_end * 1000
-          ).toISOString(),
+          p_current_period_end: new Date(periodEnd * 1000).toISOString(),
         })
         break
       }
@@ -74,7 +72,6 @@ export async function POST(request: NextRequest) {
       }
 
       default:
-        // Ignore unhandled event types
         break
     }
   } catch (err) {

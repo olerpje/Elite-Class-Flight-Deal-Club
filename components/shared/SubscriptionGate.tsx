@@ -1,7 +1,6 @@
 'use client'
 
 import { useSubscription } from '@/hooks/useSubscription'
-import type { SubscriptionTier } from '@/types'
 
 interface Props {
   children: React.ReactNode
