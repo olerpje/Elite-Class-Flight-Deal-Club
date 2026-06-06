@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
         await supabase.rpc('sync_stripe_subscription', {
           p_stripe_customer_id: subscription.customer as string,
           p_stripe_subscription_id: subscription.id,
-          p_subscription_status: subscription.status as any,
+          p_subscription_status: subscription.status as 'active' | 'trialing' | 'past_due' | 'canceled' | 'incomplete' | 'incomplete_expired' | 'paused',
           p_subscription_tier: tier,
           p_current_period_end: new Date(
             subscription.current_period_end * 1000

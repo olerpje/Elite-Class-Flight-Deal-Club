@@ -109,7 +109,7 @@ export default function LandingPage() {
             <Plane className="h-6 w-6 text-amber-400" />
             <h3 className="font-semibold text-white">Business and First Only</h3>
             <p className="text-zinc-400 text-sm leading-relaxed">
-              We don't waste your time with economy deals. Every alert is Premium Economy, Business, or First Class.
+              We don&apos;t waste your time with economy deals.
             </p>
           </div>
           <div className="flex flex-col gap-3">

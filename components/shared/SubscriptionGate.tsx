@@ -6,10 +6,9 @@ import type { SubscriptionTier } from '@/types'
 interface Props {
   children: React.ReactNode
   fallback?: React.ReactNode
-  requiredTier?: SubscriptionTier
 }
 
-export function SubscriptionGate({ children, fallback, requiredTier = 'premium_monthly' }: Props) {
+export function SubscriptionGate({ children, fallback, }: Props) {
   const { isPremium, isLoading } = useSubscription()
 
   if (isLoading) return null
