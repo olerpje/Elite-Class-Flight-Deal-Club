@@ -61,15 +61,15 @@ export async function POST(request: NextRequest) {
       }
 
       case 'invoice.payment_failed': {
-        const invoice = event.data.object as Stripe.Invoice
-        if (invoice.subscription) {
-          await supabase
-            .from('profiles')
-            .update({ subscription_status: 'past_due' })
-            .eq('stripe_customer_id', invoice.customer as string)
-        }
-        break
-      }
+  const invoice = event.data.object as Stripe.Invoice & { subscription?: string }
+  if (invoice.subscription) {
+    await supabase
+      .from('profiles')
+      .update({ subscription_status: 'past_due' })
+      .eq('stripe_customer_id', invoice.customer as string)
+  }
+  break
+}
 
       default:
         break
