@@ -65,10 +65,9 @@ export function PremiumDashboard({ isPremium }: Props) {
               You are viewing deals <span className="text-amber-400 font-medium">4 hours after</span> Elite Members receive them.
             </p>
             
-              href="/upgrade"
-              className="text-xs text-amber-400 border border-amber-400/30 rounded-full px-3 py-1 hover:bg-amber-400/10 transition-colors">
-              Upgrade now →
-            </a>
+            <a href="/upgrade" className="text-xs text-amber-400 border border-amber-400/30 rounded-full px-3 py-1 hover:bg-amber-400/10 transition-colors">
+  Upgrade now &#8594;
+</a>
           </div>
         </div>
       )}
@@ -239,25 +238,19 @@ function DealCard({ deal, isPremium, index }: { deal: DealPublicView; isPremium:
         )}
 
         {/* CTA */}
-        {isPremium ? (
-          
-            href={deal.booking_url!}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full text-center text-sm font-medium py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black transition-colors"
-          >
-            Book Now — Before It Sells Out
-          </a>
-        ) : (
-          
-            href="/upgrade"
-            className="w-full text-center text-xs py-3 rounded-xl border border-white/10 text-white/40 hover:border-amber-400/30 hover:text-amber-400/70 transition-all"
-          >
-            Instant real-time access is restricted to Elite Members.{' '}
-            <span className="underline underline-offset-2">Upgrade to unlock →</span>
-          </a>
-        )}
-      </div>
-    </div>
-  )
-}
+{isPremium ? (
+  
+    href={deal.booking_url!}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-full text-center text-sm font-medium py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black transition-colors block">
+    Book Now — Before It Sells Out
+  </a>
+) : (
+  
+    href="/upgrade"
+    className="w-full text-center text-xs py-3 rounded-xl border border-white/10 text-white/40 hover:border-amber-400/30 hover:text-amber-400/70 transition-all block">
+    Instant real-time access is restricted to Elite Members.{' '}
+    <span className="underline underline-offset-2">Upgrade to unlock &#8594;</span>
+  </a>
+)}
