@@ -27,7 +27,6 @@ export function PremiumDashboard({ isPremium }: Props) {
 
   return (
     <div className="min-h-screen" style={{ background: 'radial-gradient(ellipse at top, #0f0f0f 0%, #090909 100%)' }}>
-      {/* Header */}
       <div className="border-b border-white/5 px-8 py-6">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
@@ -57,22 +56,19 @@ export function PremiumDashboard({ isPremium }: Props) {
         </div>
       </div>
 
-      {/* Free tier banner */}
       {!isPremium && (
         <div className="border-b border-amber-500/10 bg-amber-500/5 px-8 py-3">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <p className="text-xs text-amber-400/70">
               You are viewing deals <span className="text-amber-400 font-medium">4 hours after</span> Elite Members receive them.
             </p>
-            
             <a href="/upgrade" className="text-xs text-amber-400 border border-amber-400/30 rounded-full px-3 py-1 hover:bg-amber-400/10 transition-colors">
-  Upgrade now &#8594;
-</a>
+              Upgrade now &#8594;
+            </a>
           </div>
         </div>
       )}
 
-      {/* Deal grid */}
       <div className="max-w-7xl mx-auto px-8 py-10">
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
@@ -102,7 +98,7 @@ function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center py-32 gap-4">
       <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center mb-2">
-        <span className="text-2xl">✦</span>
+        <span className="text-2xl">&#10022;</span>
       </div>
       <p className="text-white/60 text-lg font-light">No active deals at this moment</p>
       <p className="text-white/30 text-sm">Our scanners are active. New deals surface daily.</p>
@@ -132,6 +128,12 @@ function formatPrice(price: number, currency: string) {
 function DealCard({ deal, isPremium, index }: { deal: DealPublicView; isPremium: boolean; index: number }) {
   const cabin = CABIN_CONFIG[deal.cabin_class] ?? CABIN_CONFIG.business
 
+  const accentClass = deal.cabin_class === 'first'
+    ? 'bg-gradient-to-r from-transparent via-amber-400/50 to-transparent'
+    : deal.cabin_class === 'business'
+    ? 'bg-gradient-to-r from-transparent via-violet-400/50 to-transparent'
+    : 'bg-gradient-to-r from-transparent via-blue-400/50 to-transparent'
+
   return (
     <div
       className="group relative rounded-2xl border border-white/8 overflow-hidden transition-all duration-300 hover:border-white/15 hover:-translate-y-0.5"
@@ -140,11 +142,9 @@ function DealCard({ deal, isPremium, index }: { deal: DealPublicView; isPremium:
         animationDelay: `${index * 50}ms`,
       }}
     >
-      {/* Top accent line */}
-      <div className={`h-px w-full ${deal.cabin_class === 'first' ? 'bg-gradient-to-r from-transparent via-amber-400/50 to-transparent' : deal.cabin_class === 'business' ? 'bg-gradient-to-r from-transparent via-violet-400/50 to-transparent' : 'bg-gradient-to-r from-transparent via-blue-400/50 to-transparent'}`} />
+      <div className={`h-px w-full ${accentClass}`} />
 
       <div className="p-6 flex flex-col gap-5">
-        {/* Header row */}
         <div className="flex items-start justify-between">
           <div className="flex gap-2 flex-wrap">
             <span className={`text-[10px] font-medium tracking-wider uppercase px-2.5 py-1 rounded-full border ${cabin.bg} ${cabin.border} ${cabin.color}`}>
@@ -159,7 +159,6 @@ function DealCard({ deal, isPremium, index }: { deal: DealPublicView; isPremium:
           <span className="text-[10px] text-white/25 shrink-0">{timeAgo(deal.created_at)}</span>
         </div>
 
-        {/* Route — gated */}
         {isPremium ? (
           <div className="space-y-1.5">
             <div className="flex items-center gap-3">
@@ -169,7 +168,7 @@ function DealCard({ deal, isPremium, index }: { deal: DealPublicView; isPremium:
               </div>
               <div className="flex-1 flex items-center gap-1.5 px-2">
                 <div className="flex-1 h-px bg-white/10" />
-                <span className="text-white/20 text-xs">✈</span>
+                <span className="text-white/20 text-xs">&#9992;</span>
                 <div className="flex-1 h-px bg-white/10" />
               </div>
               <div className="text-center">
@@ -181,7 +180,6 @@ function DealCard({ deal, isPremium, index }: { deal: DealPublicView; isPremium:
           </div>
         ) : (
           <div className="relative">
-            {/* Blurred route preview */}
             <div className="blur-sm opacity-40 pointer-events-none select-none">
               <div className="flex items-center gap-3">
                 <div className="text-center">
@@ -190,7 +188,7 @@ function DealCard({ deal, isPremium, index }: { deal: DealPublicView; isPremium:
                 </div>
                 <div className="flex-1 flex items-center gap-1.5 px-2">
                   <div className="flex-1 h-px bg-white/10" />
-                  <span className="text-white/20 text-xs">✈</span>
+                  <span className="text-white/20 text-xs">&#9992;</span>
                   <div className="flex-1 h-px bg-white/10" />
                 </div>
                 <div className="text-center">
@@ -199,7 +197,6 @@ function DealCard({ deal, isPremium, index }: { deal: DealPublicView; isPremium:
                 </div>
               </div>
             </div>
-            {/* Lock overlay */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center px-4">
                 <div className="w-6 h-6 rounded-full border border-amber-400/40 flex items-center justify-center mx-auto mb-2">
@@ -215,7 +212,6 @@ function DealCard({ deal, isPremium, index }: { deal: DealPublicView; isPremium:
           </div>
         )}
 
-        {/* Price */}
         <div className="flex items-end gap-3">
           <span className="text-3xl font-light text-white">
             {formatPrice(deal.deal_price, deal.currency)}
@@ -230,27 +226,29 @@ function DealCard({ deal, isPremium, index }: { deal: DealPublicView; isPremium:
           </div>
         </div>
 
-        {/* Travel window */}
         {deal.travel_window_start && (
           <p className="text-[11px] text-white/25">
             Travel window: {deal.travel_window_start}{deal.travel_window_end ? ` — ${deal.travel_window_end}` : ''}
           </p>
         )}
 
-        {/* CTA */}
-{isPremium ? (
-  
-    href={deal.booking_url!}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-full text-center text-sm font-medium py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black transition-colors block">
-    Book Now — Before It Sells Out
-  </a>
-) : (
-  
-    href="/upgrade"
-    className="w-full text-center text-xs py-3 rounded-xl border border-white/10 text-white/40 hover:border-amber-400/30 hover:text-amber-400/70 transition-all block">
-    Instant real-time access is restricted to Elite Members.{' '}
-    <span className="underline underline-offset-2">Upgrade to unlock &#8594;</span>
-  </a>
-)}
+        {isPremium ? (
+          <a
+            href={deal.booking_url ?? '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full text-center text-sm font-medium py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black transition-colors block">
+            Book Now — Before It Sells Out
+          </a>
+        ) : (
+          <a
+            href="/upgrade"
+            className="w-full text-center text-xs py-3 rounded-xl border border-white/10 text-white/40 hover:border-amber-400/30 hover:text-amber-400/70 transition-all block">
+            Instant real-time access restricted to Elite Members.{' '}
+            <span className="underline underline-offset-2">Upgrade to unlock &#8594;</span>
+          </a>
+        )}
+      </div>
+    </div>
+  )
+}
