@@ -66,8 +66,7 @@ export function PremiumDashboard({ isPremium }: Props) {
             </p>
             
               href="/upgrade"
-              className="text-xs text-amber-400 border border-amber-400/30 rounded-full px-3 py-1 hover:bg-amber-400/10 transition-colors"
-            >
+              className="text-xs text-amber-400 border border-amber-400/30 rounded-full px-3 py-1 hover:bg-amber-400/10 transition-colors">
               Upgrade now →
             </a>
           </div>
