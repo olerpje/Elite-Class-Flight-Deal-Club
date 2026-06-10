@@ -79,7 +79,7 @@ export default function UpgradePage() {
           </Badge>
           <div>
             <p className="text-zinc-400 text-sm mb-1">Annual</p>
-            <p className="text-4xl font-bold">€399
+            <p className="text-4xl font-bold">€499
               <span className="text-lg font-normal text-zinc-400">/year</span>
             </p>
             <p className="text-emerald-400 text-xs mt-1">€33/month — 2 months free</p>
@@ -103,7 +103,7 @@ export default function UpgradePage() {
             onClick={() => handleCheckout('annual')}
             disabled={loading !== null}
           >
-            {loading === 'annual' ? 'Loading...' : 'Start Annual — €399/yr'}
+            {loading === 'annual' ? 'Loading...' : 'Start Annual — €499/yr'}
           </Button>
         </div>
       </div>
